@@ -1,0 +1,136 @@
+{
+  "Jest describe": {
+    "prefix": "describe",
+    "body": [
+      "describe('$1', () => {",
+      "\t",
+      "\tit('should be able $2', () => {",
+      "\t\t$3",
+      "\t});",
+      "});"
+    ],
+    "description": "Jest describe Basic"
+  },
+
+  "Jest beforeEach": {
+    "prefix": "beforeEach",
+    "body": ["beforeEach(() => {", "\t$2", "});"],
+    "description": "Jest beforeEach"
+  },
+
+  "Jest describe with beforeEach": {
+    "prefix": "describe",
+    "body": [
+      "describe('$1', () => {",
+      "\t",
+      "\tbeforeEach(() => {",
+      "\t\t$2",
+      "\t});",
+      "\t",
+      "\tit('should be able $3', () => {",
+      "\t\t$4",
+      "\t});",
+      "});"
+    ],
+    "description": "Jest describe with beforeEach"
+  },
+
+  "Jest it": {
+    "prefix": "it should",
+    "body": ["it('should be able $1', () => {", "\t$2", "});"],
+    "description": "Jest it"
+  },
+
+  "Jest it async": {
+    "prefix": "it should",
+    "body": ["it('should be able $1', async () => {", "\t$2", "});"],
+    "description": "Jest it async"
+  },
+
+  "UseCase Basic Fastify": {
+    "prefix": "useCase Basic fastify",
+    "body": [
+      "import { AppError } from '@helper/errorsHandler'",
+      "import { AppResponse } from '@helper/responseParser'",
+      "import { I$1Repositories } from '@modules/$2/iRepositories/I$3Repositories'",
+      "import { IUuidProvider } from '@providers/uuidProvider/IUuidProvider'",
+      "import { inject, injectable } from 'tsyringe'",
+      "",
+      "interface IRequest {",
+      "\tid: string",
+      "}",
+      "",
+      "@injectable()",
+      "class ${TM_DIRECTORY/.*[\\\\\\/](.*)$/${1:/capitalize}/}UseCase {",
+      "\tconstructor() {}",
+      "\t",
+      "",
+      "\tasync execute(): Promise<AppResponse>{",
+      "\t\tif (!this.uuidProvider.validateUUID(id)) {",
+      "\t\t\tthrow new AppError({",
+      "\t\t\t\tstatusCode: 401,",
+      "\t\t\t\tresult: 'error',",
+      "\t\t\t\tmessage: 'ID Inválido!',",
+      "\t\t\t})",
+      "\t\t}",
+      "\t\t",
+      "\t\tconst data = {},",
+      "\t\t",
+      "\t\treturn new AppResponse({",
+      "\t\t\tdata,",
+      "\t\t\tcode: 0,",
+      "\t\t\tresult: 'success',",
+      "\t\t\tmessage: 'Uma mensagem aqui!'",
+      "\t\t})",
+      "\t}",
+      "}",
+      "",
+      "export { ${TM_DIRECTORY/.*[\\\\\\/](.*)$/${1:/capitalize}/}UseCase }",
+      ""
+    ],
+    "description": "UseCase Basic fastify"
+  },
+
+  "Controller Basic": {
+    "prefix": "controller Basic",
+    "body": [
+      "import { Request, Response} from 'express';",
+      "",
+      "",
+      "export class ${TM_DIRECTORY/.*[\\\\\\/](.*)$/$1/}Controller {",
+      "\t",
+      "\tasync handle(request: Request, response: Response) {",
+      "\t",
+      "\t\t};",
+      "};"
+    ],
+    "description": "Controller Basic"
+  },
+
+  "Controller Basic Fastify": {
+    "prefix": "controller Basic fastify",
+    "body": [
+      "import { ${TM_DIRECTORY/.*[\\\\\\/](.*)$/${1:/capitalize}/}UseCase } from './${TM_DIRECTORY/.*[\\\\\\/](.*)$/$1/}UseCase'",
+      "",
+      "import { FastifyReply, FastifyRequest } from 'fastify'",
+      "import { container } from 'tsyringe'",
+      "",
+      "",
+      "class ${TM_DIRECTORY/.*[\\\\\\/](.*)$/${1:/capitalize}/}Controller {",
+      "\t",
+      "\tasync handle(request: FastifyRequest, reply: FastifyReply): Promise<void> {",
+      "\t\tconst ${TM_DIRECTORY/.*[\\\\\\/](.*)$/$1/}UseCase = container.resolve(${TM_DIRECTORY/.*[\\\\\\/](.*)$/${1:/capitalize}/}UseCase)",
+      "\t\t",
+      "\t\t const response = await ${TM_DIRECTORY/.*[\\\\\\/](.*)$/$1/}UseCase.execute({",
+      "\t\t\t$1",
+      "\t\t})",
+      "\t\t",
+      "\t\treturn reply.send(response)",
+      "\t}",
+      "}",
+      "export { ${TM_DIRECTORY/.*[\\\\\\/](.*)$/${1:/capitalize}/}Controller }",
+      ""
+    ],
+    "description": "Controller Basic fastify"
+  }
+}

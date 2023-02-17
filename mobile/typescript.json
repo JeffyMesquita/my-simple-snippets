@@ -1,0 +1,15 @@
+{
+  "styles.ts": {
+    "prefix": "tsstyle",
+    "body": [
+      "import { StyleSheet } from 'react-native';",
+      "",
+      "export const styles = StyleSheet.create({",
+      "\tcontainer: {",
+      "\t\t$1",
+      "\t},",
+      "})"
+    ],
+    "description": "StyleSheet Básico.ts"
+  }
+}
